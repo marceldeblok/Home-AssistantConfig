@@ -1,0 +1,60 @@
+##########################
+## Toon aan op beweging
+##########################
+- id: turn_on_toon_on_movement
+  alias: "Temp: Toon aan op beweging"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.pir_woonkamer_motion
+      to: "on"
+    - platform: state
+      entity_id: sensor.sm_a505fn_charger_type
+      to: "none"
+      from: "ac"
+  condition:
+    - condition: and
+      conditions:
+        - condition: time
+          after: "06:45:00"
+          before: "08:30:00"
+        - condition: numeric_state
+          entity_id: sensor.room_temperature
+          below: 19.5
+  action:
+    - service: climate.set_preset_mode
+      data:
+        entity_id: climate.woonkamer
+        preset_mode: home
+    - service: homeassistant.turn_on
+      entity_id:
+        - input_boolean.toon_on_movement
+
+##########################
+## Toon uit op schooltijd
+##########################
+- id: turn_off_toon_at_school_time
+  alias: "Temp: Toon uit op schooltijd"
+  trigger:
+    - platform: time
+      at: input_datetime.time_schooltijd
+  condition:
+    - condition: and
+      conditions:
+        - condition: state
+          entity_id: input_boolean.toon_on_movement
+          state: "on"
+        - condition: time
+          weekday:
+            - mon
+            - tue
+            - wed
+            - thu
+            - fri
+  action:
+    - service: climate.set_preset_mode
+      data:
+        entity_id: climate.woonkamer
+        preset_mode: away
+    - service: homeassistant.turn_off
+      entity_id:
+        - input_boolean.toon_on_movement

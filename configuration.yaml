@@ -1,0 +1,36 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+    language: "nl"
+    service_name: google_say
+    base_url: !secret http_url
+    # cache: true
+    # cache_dir: /tmp/tts
+    # time_memory: 300
+
+homeassistant:
+#  whitelist_external_dirs:
+#    - /config
+  packages: !include_dir_named packages
+  auth_providers:
+    - type: homeassistant
+    - type: trusted_networks
+      trusted_networks:
+        - !secret trusted_network_1
+        - !secret trusted_network_2
+        - !secret trusted_network_3
+
+frontend:
+  themes: !include_dir_merge_named themes
+
+group: !include groups.yaml
+automation: !include automations.yaml
+automation split: !include_dir_merge_list automation/
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+

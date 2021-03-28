@@ -1,0 +1,8 @@
+alarm_flash_lights:
+  alias: 'Alarm: Flash Lights'
+  sequence:
+  - condition: state
+    entity_id: alarm_control_panel.alarm
+    state: armed_away
+  - service: scene.turn_on
+  mode: single

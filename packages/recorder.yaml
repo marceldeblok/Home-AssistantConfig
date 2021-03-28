@@ -1,0 +1,31 @@
+recorder:
+  db_url: !secret recorder_db_url
+  purge_keep_days: 14
+  exclude:
+    domains:
+      - automation
+      - group
+      - light
+      - media
+      - sun
+      - switch
+      - updater
+      - weather
+      - zone
+    entity_globs:
+      - sensor.afvalinfo_*
+      - sensor.omv_*
+      - sensor.pixel_c_*
+      - sensor.sm_a605fn_*
+      - sensor.sm_j600fn_*
+      - sensor.sm_j730f_*
+      - sensor.speedtest_*
+#      - sensor.tasmota_*
+      - sensor.toon_*
+      - sensor.pi_hole_*
+    entities:
+      - sensor.daylight
+      - sensor.influxdb_size
+      - sensor.last_boot
+      - sensor.hacs
+

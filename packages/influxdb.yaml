@@ -1,0 +1,15 @@
+influxdb:
+  host: !secret influxdb_host
+  include:
+    entities:
+       - sensor.multi_sensor_living_room
+       - sensor.multi_sensor_living_room_2
+       - sensor.multi_sensor_bed_room
+       - sensor.multi_sensor_bed_room_2
+       - sensor.tasmota_bme280_temperature
+       - sensor.tasmota_bme280_humidity
+       - sensor.gas_consumption
+       - sensor.hourly_gas_consumption
+       - sensor.power_consumption
+       - sensor.energy_consumption_tarif_1
+       - sensor.energy_consumption_tarif_2

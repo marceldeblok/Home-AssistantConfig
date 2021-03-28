@@ -1,0 +1,17 @@
+panel_iframe:
+  grafana:
+    title: 'Grafana'
+    url: 'http://192.168.1.120:3000'
+    icon: mdi:chart-line
+  portainer:
+    title: 'Portainer'
+    url: 'http://192.168.1.120:9000'
+    icon: mdi:docker
+  phoscon:
+    title: 'Phoscon'
+    url: 'http://192.168.1.116'
+    icon: mdi:zigbee
+  mdiindex:
+    title: MDI Icon Index
+    icon: mdi:vector-square
+    url: https://cdn.materialdesignicons.com/3.3.92/

@@ -1,0 +1,104 @@
+# SYSTEM MONITOR #
+sensor:
+  - platform: systemmonitor
+    resources:
+      - type: disk_use_percent
+        arg: /
+      - type: memory_free
+      - type: memory_use_percent
+      - type: processor_use
+      - type: last_boot
+
+# DB FILE SIZE #
+#sensor:
+#  - platform: filesize
+#    file_paths:
+#      - /config/home-assistant_v2.db
+
+# InfluxDB #
+  - platform: influxdb
+    host: !secret influxdb_host
+    queries:
+    - name: InfluxDB Size
+      unit_of_measurement: MB
+      value_template: '{{ (value | float / 1024 /1024) | round(1) }}'
+      group_function: sum
+      measurement: '"monitor"."shard"'
+      database: _internal
+      where: 'time > now() - 10s'
+      field: diskBytes
+
+# WAZE TRAVEL TIME #
+  - platform: waze_travel_time
+    name: "Marcel ETT Home"
+    origin: device_tracker.sm_j730f
+    destination: zone.home
+    region: 'EU'
+
+  - platform: waze_travel_time
+    name: "Ania ETT Home"
+    origin: device_tracker.sm_j600fn
+    destination: zone.home
+    region: 'EU'
+
+  - platform: waze_travel_time
+    name: "Samantha ETT Home"
+    origin: device_tracker.sm_a605fn
+    destination: zone.home
+    region: 'EU'
+
+# DSMR #
+  - platform: dsmr
+    host: !secret p1_gateway
+    port: 2001
+    dsmr_version: 2.2
+
+# TOON #
+  - platform: toon_boilerstatus
+    host: !secret toon_host
+    port: 80
+    scan_interval: 10
+    resources:
+      - boilersetpoint
+      - boilerintemp
+      - boilerouttemp
+      - boilerpressure
+      - boilermodulationlevel
+      - roomtemp
+      - roomtempsetpoint
+
+# AFVALINFO #
+  - platform: afvalinfo
+    resources:
+      - restafval
+      - gft
+      - papier
+      - pbd
+    location: heiloo
+    postcode: 1851NE
+    streetnumber: 381
+    dateformat: '%d-%m-%Y'
+    locale: 'nl'
+    timespanindays: 365
+
+# MQTT #
+#  - platform: mqtt
+#   name: "Living Room Temperature"
+#   state_topic: "ESP_Easy_1/1/DHT22/Temperature"
+#    unit_of_measurement: "°C"
+#  - platform: mqtt
+#    name: "Living Room Humidity"
+#    state_topic: "ESP_Easy_1/1/DHT22/Humidity"
+#    unit_of_measurement: "%"
+#  - platform: mqtt
+#    name: "Bed Room Temperature"
+#    state_topic: "ESP_Easy_2/2/DHT22/Temperature"
+#    unit_of_measurement: "°C"
+#  - platform: mqtt
+#    name: "Bed Room Humidity"
+#    state_topic: "ESP_Easy_2/2/DHT22/Humidity"
+#    unit_of_measurement: "%"
+
+
+
+

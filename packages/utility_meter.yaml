@@ -1,0 +1,42 @@
+# DSMR METER READINGS #
+utility_meter:
+  hourly_energy_offpeak:
+    source: sensor.energy_consumption_tarif_1
+    cycle: hourly
+  hourly_energy_peak:
+    source: sensor.energy_consumption_tarif_2
+    cycle: hourly
+  hourly_gas:
+    source: sensor.gas_consumption
+    cycle: hourly
+
+  daily_energy_offpeak:
+    source: sensor.energy_consumption_tarif_1
+    cycle: daily
+  daily_energy_peak:
+    source: sensor.energy_consumption_tarif_2
+    cycle: daily
+  daily_gas:
+    source: sensor.gas_consumption
+    cycle: daily
+
+  weekly_energy_offpeak:
+    source: sensor.energy_consumption_tarif_1
+    cycle: monthly
+  weekly_energy_peak:
+    source: sensor.energy_consumption_tarif_2
+    cycle: weekly
+  weekly_gas:
+    source: sensor.gas_consumption
+    cycle: weekly
+
+  monthly_energy_offpeak:
+    source: sensor.energy_consumption_tarif_1
+    cycle: monthly
+  monthly_energy_peak:
+    source: sensor.energy_consumption_tarif_2
+    cycle: monthly
+  monthly_gas:
+    source: sensor.gas_consumption
+    cycle: monthly
+

@@ -1,0 +1,9 @@
+climate:
+  - platform: toon_climate
+    name: Toon Thermostat
+    host: !secret toon_host
+    port: 80
+    scan_interval: 10
+    min_temp: 16.0
+    max_temp: 22.0
+

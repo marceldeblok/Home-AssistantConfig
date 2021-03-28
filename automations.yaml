@@ -1,0 +1,128 @@
+- id: '1605036358465'
+  alias: 'Notify: Wasmachine klaar'
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.ts0121_2
+    above: '400'
+  action:
+  - wait_for_trigger:
+    - platform: numeric_state
+      entity_id: sensor.ts0121_2
+      below: '5'
+      for: 00:02:00
+    timeout: 03:00:00
+    continue_on_timeout: false
+  - service: persistent_notification.create
+    data:
+      message: De wasmachine/droger is klaar
+  - service: notify.mobile_app_sm_j600fn
+    data:
+      message: De wasmachine/droger is klaar
+  mode: single
+- id: '1606504198850'
+  alias: 'Alarm: Trigger when sensors go off'
+  trigger:
+  - type: motion
+    platform: device
+    device_id: ee310ed10f0e11eb9d655b6ac4c27d35
+    entity_id: binary_sensor.motion_sensor_1
+    domain: binary_sensor
+  - type: motion
+    platform: device
+    device_id: ee310ed10f0e11eb9d655b6ac4c27d35
+    entity_id: binary_sensor.motion_sensor_1
+    domain: binary_sensor
+  - platform: state
+    entity_id: binary_sensor.window_door_sensor_1
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.window_door_sensor_1
+    to: 'on'
+  condition:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: alarm_control_panel.alarm
+      state: armed_home
+    - condition: state
+      entity_id: alarm_control_panel.alarm
+      state: armed_away
+  action:
+  - service: alarm_control_panel.alarm_trigger
+    data: {}
+    target:
+      entity_id: alarm_control_panel.alarm
+  mode: single
+- id: '1606504862973'
+  alias: 'Alarm: Triggered'
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.alarm
+    to: triggered
+  action:
+  - service: notify.notify
+    data:
+      message: ALARM! The alarm has been triggered
+  - service: media_player.volume_set
+    target:
+      device_id: 40b158fee1693971aaff51d4d51bf126
+    data:
+      volume_level: 1
+  - service: tts.google_say
+    data:
+      entity_id: media_player.badkamer
+      message: Intruder detected! You are on camera and the police is on their way
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+  - service: media_player.play_media
+    data:
+      media_content_type: music
+      media_content_id: http://192.168.1.120:8123/local/alarm1.mp3
+    target:
+      entity_id: media_player.badkamer
+  mode: single
+- id: '1606505010054'
+  alias: 'Alarm: Disarmed'
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.alarm
+    to: disarmed
+  action:
+  - service: homeassistant.turn_off
+    target:
+      entity_id: media_player.badkamer
+  mode: single
+- id: '1608581554294'
+  alias: 'Lights: Front door on at sunset'
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+  condition:
+  - condition: state
+    entity_id: light.garden
+    state: 'off'
+  action:
+  - service: light.turn_on
+    data: {}
+    target:
+      entity_id: light.garden
+  mode: single
+- id: '1609278273951'
+  alias: 'Lights: Front door off at sunrise'
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunrise
+  condition:
+  - condition: state
+    entity_id: light.garden
+    state: 'on'
+  action:
+  - service: light.turn_off
+    data: {}
+    entity_id: light.garden
+  mode: single

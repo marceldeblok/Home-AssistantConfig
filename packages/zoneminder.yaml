@@ -1,0 +1,6 @@
+zoneminder:
+  - host: !secret zm_host
+    path: /zm/
+
+camera:
+  - platform: zoneminder
