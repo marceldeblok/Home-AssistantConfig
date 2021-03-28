@@ -8,6 +8,7 @@
 !*.md
 !automation/
 !blueprints/
+!blueprints/*
 !custom_components/
 !packages/
 !themes/
