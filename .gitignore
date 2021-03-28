@@ -6,6 +6,7 @@
 !.HA_VERSION
 !.gitignore
 !*.md
+!*.mp3
 !automation/
 !blueprints/
 !custom_components/
