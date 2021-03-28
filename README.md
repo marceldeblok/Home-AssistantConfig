@@ -13,7 +13,7 @@ My Home Assistant configuration
 * Sidetable Zigbee filament bulb
 * Frontdoor light Sonoff ZBMINI
 * Garagedoor lights Sonoff ZBMINI
-* Garage light Sonoff ZBMINI
+* Garage lights Sonoff ZBMINI
 
 # Sensors
 * 4x Aqara temp/hum
