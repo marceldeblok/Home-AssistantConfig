@@ -8,10 +8,14 @@
 !*.md
 !*.mp3
 !automation/
+!automation/*
 !blueprints/
 !custom_components/
+!custom_components/*
 !packages/
+!packages/*
 !themes/
+!themes/*
 !wwww/
 
 # Ignore folders.

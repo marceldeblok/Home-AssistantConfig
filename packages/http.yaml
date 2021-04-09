@@ -1,10 +1,11 @@
 http:
+  ip_ban_enabled: true
+  login_attempts_threshold: 5
   use_x_forwarded_for: true
   trusted_proxies:
-    - 127.0.0.1      #localhost
-    - 172.17.0.10    #docker network container IP for swag
-    - 172.20.0.0
-    - 172.21.0.0     #my_net gw
-    - 192.168.1.120  #internal ip
-  ip_ban_enabled: False
-  login_attempts_threshold: 5
+    - 127.0.0.1       #localhost
+    - 172.17.0.0/16   #docker network container IP for swag
+    - 172.20.0.0/16   #docker network container IP for Home Assistant
+    - 172.21.0.0/16   #my-net gw
+    - 192.168.1.0/24  #internal ip
+
